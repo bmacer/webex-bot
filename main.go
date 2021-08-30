@@ -6,7 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	api "webex-bot/api"
+
+	api "github.com/bmacer/webex-bot/api"
 )
 
 func main() {

@@ -29,6 +29,7 @@ func extract(b []byte, ex Extractable) {
 
 func sendRequest(reqType string, url string, b io.Reader) []byte {
 	token := os.Getenv("WEBEX_API")
+	os.Environ()
 	client := &http.Client{}
 	req, _ := http.NewRequest(reqType, url, b)
 	t := fmt.Sprintf("Bearer %v", token)
