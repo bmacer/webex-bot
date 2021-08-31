@@ -15,6 +15,31 @@ type Webhook struct {
 	TargetUrl string
 }
 
+type WebhookResponseData struct {
+	Id          string `json:"id"`
+	RoomId      string `json:"roomId"`
+	RoomType    string `json:"roomType"`
+	PersonId    string `json:"personId"`
+	PersonEmail string `json:"personEmail"`
+	Created     string `json:"created"`
+}
+
+type WebhookResponse struct {
+	Id        string              `json:"id"`
+	Name      string              `json:"name"`
+	TargetUrl string              `json:"targetUrl"`
+	Resource  string              `json:"resource"`
+	Event     string              `json:"event"`
+	OrgId     string              `json:"ordId"`
+	CreatedBy string              `json:"createdBy"`
+	AppId     string              `json:"appId"`
+	OwnedBy   string              `json:"ownedBy"`
+	Status    string              `json:"status"`
+	Created   string              `json:"created"`
+	ActorId   string              `json:"actorId"`
+	Data      WebhookResponseData `json:"data"`
+}
+
 // Get webhooks
 func GetWebhooks() Webhooks {
 	var wh Webhooks

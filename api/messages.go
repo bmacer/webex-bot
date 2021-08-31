@@ -2,10 +2,10 @@ package api
 
 import (
 	"bytes"
-	"encoding/json"
+	"fmt"
 )
 
-type PostMessage struct {
+type MessagePosting struct {
 	RoomId      string                   `json:"roomId"`
 	Text        string                   `json:"text"`
 	Attachments []AdaptiveCardAttachment `json:"attachments"`
@@ -23,92 +23,47 @@ type Message struct {
 	Attachments []AdaptiveCardAttachment `json:"attachments"`
 }
 
+func (aca *AdaptiveCardAttachment) AsBytes() []byte {
+	var b []byte
+	b = append(b, []byte(fmt.Sprintf(`{"contentType":"%v","content":`, aca.ContentType))...)
+	b = append(b, aca.Content...)
+	b = append(b, byte('}'))
+	return b
+}
+
 type AdaptiveCardAttachment struct {
-	ContentType string              `json:"contentType"`
-	Content     AdaptiveCardContent `json:"content"`
+	ContentType string `json:"contentType"`
+	Content     string `json:"content"`
 }
 
-type AdaptiveCardContent struct {
-	Type    string                     `json:"type"`
-	Body    []AdaptiveContentTextBlock `json:"body"`
-	Schema  string                     `json:"$schema"`
-	Version string                     `json:"version"`
-}
-
-type AdaptiveContentTextBlock struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
-	Wrap bool   `json:"wrap"`
-}
-
-func NewSimpleAttachment(msg string) []AdaptiveCardAttachment {
-	content := AdaptiveCardContent{
-		Type: "AdaptiveCard",
-		Body: []AdaptiveContentTextBlock{
-			AdaptiveContentTextBlock{
-				Type: "TextBlock",
-				Text: msg,
-				Wrap: true,
-			},
-		},
-		Schema:  "http://adaptivecards.io/schemas/adaptive-card.json",
-		Version: "1.2",
-	}
-
-	attachment := []AdaptiveCardAttachment{
-		AdaptiveCardAttachment{
-			ContentType: "application/vnd.microsoft.card.adaptive",
-			Content:     content,
-		},
-	}
-
-	return attachment
-}
-
-func NewMessage(roomId string, msg string) PostMessage {
-	return PostMessage{
-		RoomId: roomId,
-		Text:   msg,
-	}
-
-}
-
-func NewMessageWithAttachment(roomId string, msg string, testMessage string) PostMessage {
-	return PostMessage{
-		RoomId:      roomId,
-		Text:        msg,
-		Attachments: NewSimpleAttachment(testMessage),
-	}
-}
-
-func PostMessageWithAdaptiveCard(p PostMessage) Message {
+func PostMessage(roomId string, msg string) Message {
 	var m Message
 	url := "https://webexapis.com/v1/messages"
-	j, _ := json.Marshal(p)
-	mp := []byte(j)
+
+	c := fmt.Sprintf(`
+	{
+		"roomId": "%v",
+		"text": "%v",
+	}`, roomId, msg)
+
+	mp := []byte(c)
 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
 	extract(req, &m)
 	return m
-
 }
 
-// func PostMessageToRoom(roomId string, msg string) Message {
-// 	var m Message
-// 	url := "https://webexapis.com/v1/messages"
-
-// 	j, _ := json.Marshal(GetSimpleAttachment())
-
-// 	c := fmt.Sprintf(`
-// 	{
-// 		"roomId": "%v",
-// 		"text": "%v",
-// 		"attachments": %v
-// 	}`, roomId, msg, string(j))
-
-// 	fmt.Println(c)
-
-// 	mp := []byte(c)
-// 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
-// 	extract(req, &m)
-// 	return m
-// }
+func PostMessageWithAdaptiveCard(roomId string, aca AdaptiveCardAttachment) Message {
+	var m Message
+	url := "https://webexapis.com/v1/messages"
+	c := fmt.Sprintf(`
+	{
+		"roomId": "%v",
+		"text": "nothing",
+		"attachments": %v
+	}`, roomId, string(aca.AsBytes()))
+	mp := []byte(c)
+	req := sendRequest("POST", url, bytes.NewBuffer(mp))
+	fmt.Printf("type: %T\n", m)
+	extract(req, &m)
+	return m
+}
