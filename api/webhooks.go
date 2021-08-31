@@ -35,7 +35,7 @@ const (
 )
 
 // Create webhook
-func CreateWebhook(name string, targetUrl string, resource string, event WebhookEvent) Webhook {
+func CreateWebhook(name string, targetUrl string, resource string, event WebhookEvent, filter string) Webhook {
 	var wh Webhook
 	url := "https://webexapis.com/v1/webhooks"
 	fmt.Println(event)
@@ -43,8 +43,9 @@ func CreateWebhook(name string, targetUrl string, resource string, event Webhook
 		"name": "%v",
 		"targetUrl": "%v",
 		"resource": "%v",
-		"event": "%v"
-		}`, name, targetUrl, resource, event))
+		"event": "%v",
+		"filter": "%v",
+		}`, name, targetUrl, resource, event, filter))
 	resp := sendRequest("POST", url, bytes.NewBuffer(whb))
 	extract(resp, &wh)
 	return wh

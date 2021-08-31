@@ -6,16 +6,33 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	api "github.com/bmacer/webex-bot/api"
 )
 
 func main() {
-	// Set routing rules
+	msg := api.NewMessageWithAttachment(
+		api.GetRooms().Items[1].Id,
+		"main message",
+		"inside messagee",
+	)
+	x := api.PostMessageWithAdaptiveCard(msg)
+	fmt.Println(x)
+	// api.PostMessageToRoom(api.GetRooms().Items[1].Id, "abcde")
+
+	// created_webhook := api.CreateWebhook(
+	// 	"mywebhookIP", "http://anyaelyse.comm:8888", "messages", api.WebhookEventCreated,
+	// )
+	// fmt.Println(created_webhook)
+
+	// wh := api.GetWebhooks()
+	// for _, w := range wh.Items {
+	// 	fmt.Println(w)
+	// }
+	os.Exit(0)
+
 	http.HandleFunc("/", RequestHandler)
-	// http.HandleFunc("/", Tmp1)
-	// http.HandleFunc("/hello", Tmp2)
-	//Use the default DefaultServeMux.
 	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		log.Fatal(err)
@@ -54,8 +71,6 @@ func RequestHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("extract error: ", err)
 	}
-	// x := api.GetWebhooks()
-	// fmt.Println(x.Items[0].Id)
 
 	y := api.GetMessage(resp.Data.Id)
 	fmt.Println(y.Text)
