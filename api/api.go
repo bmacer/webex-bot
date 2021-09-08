@@ -21,7 +21,6 @@ type Extractable interface {
 }
 
 func extract(b []byte, ex Extractable) {
-	fmt.Printf("ex: %+v\n", ex)
 	err := json.Unmarshal(b, ex)
 	if err != nil {
 		fmt.Println("extract error::: ", err)
