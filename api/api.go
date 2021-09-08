@@ -54,7 +54,6 @@ func sendRequest(reqType string, url string, b io.Reader) []byte {
 func GetMessage(messageId string) Message {
 	var m Message
 	url := fmt.Sprintf("https://webexapis.com/v1/messages/%v", messageId)
-	fmt.Println(url) //TODO delete
 	res := sendRequest("GET", url, nil)
 	extract(res, &m)
 	return m

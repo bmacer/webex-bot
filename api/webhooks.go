@@ -63,7 +63,6 @@ const (
 func CreateWebhook(name string, targetUrl string, resource string, event WebhookEvent, filter string) Webhook {
 	var wh Webhook
 	url := "https://webexapis.com/v1/webhooks"
-	fmt.Println(event)
 	whb := []byte(fmt.Sprintf(`{
 		"name": "%v",
 		"targetUrl": "%v",
