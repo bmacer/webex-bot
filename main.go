@@ -1,35 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"os"
-	"strings"
-
-	api "github.com/bmacer/webex-bot/api"
-	"github.com/bmacer/webex-bot/server"
+	"github.com/bmacer/webex-bot/api"
 )
 
 func main() {
+	test_room := "Y2lzY29zcGFyazovL3VzL1JPT00vZjc0NzM0NDAtMGJmMy0xMWVjLWJmZjctOTNiMGQxYTk5MzEx"
 
-	ac, _ := ioutil.ReadFile("card copy.json")
-	acs := string(ac)
-	acs = strings.Replace(acs, "REPLACEME", "GHI", 1)
-	fmt.Println("acs:", acs)
+	api.PostMessage(test_room, "test")
+	// for i := 0; i < 5; i++ {
+	// 	ac, _ := ioutil.ReadFile("card copy.json")
+	// 	acs := string(ac)
+	// 	r := food.GetRandomRecipes()
+	// 	text := fmt.Sprint(r.Recipes[i].Id) + " " + r.Recipes[i].Title
+	// 	acs = strings.Replace(acs, "1REPLACEME1", r.Recipes[i].ImageUrl, 1)
+	// 	acs = strings.Replace(acs, "2REPLACEME2", text, 1)
+	// 	aca := api.AdaptiveCardAttachment{
+	// 		ContentType: "application/vnd.microsoft.card.adaptive",
+	// 		Content:     acs,
+	// 	}
+	// 	api.PostMessageWithAdaptiveCard(api.GetRooms().Items[1].Id, aca)
+	// }
 
-	aca := api.AdaptiveCardAttachment{
-		ContentType: "application/vnd.microsoft.card.adaptive",
-		Content:     acs,
-	}
+	// server.Run()
 
-	api.PostMessageWithAdaptiveCard(api.GetRooms().Items[1].Id, aca)
-	os.Exit(0)
-
-	http.HandleFunc("/", server.RequestHandler)
-	err := http.ListenAndServe(":8888", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
 }

@@ -3,7 +3,9 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/bmacer/webex-bot/api"
@@ -25,4 +27,24 @@ func RequestHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(y.Text)
 	fmt.Println(y.PersonEmail)
 
+}
+
+func AdminHandler(w http.ResponseWriter, r *http.Request) {
+
+	b, _ := ioutil.ReadAll(r.Body)
+	io.WriteString(w, "print to page")
+	fmt.Println(string(b))
+
+}
+
+func Run() {
+	fs := http.FileServer(http.Dir("admin"))
+
+	http.HandleFunc("/", RequestHandler)
+	http.HandleFunc("/admin", AdminHandler)
+	http.Handle("/static", fs)
+
+	if err := http.ListenAndServe(":8888", nil); err != nil {
+		log.Fatal(err)
+	}
 }

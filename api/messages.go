@@ -40,12 +40,8 @@ func PostMessage(roomId string, msg string) Message {
 	var m Message
 	url := "https://webexapis.com/v1/messages"
 
-	c := fmt.Sprintf(`
-	{
-		"roomId": "%v",
-		"text": "%v",
-	}`, roomId, msg)
-
+	c := fmt.Sprintf(`{"roomId": "%v","text": "%v"}`, roomId, msg)
+	fmt.Println(c)
 	mp := []byte(c)
 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
 	extract(req, &m)
