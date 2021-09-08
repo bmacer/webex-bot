@@ -1,0 +1,55 @@
+{
+    "id": "Y2lzY29zcGFyazovL3VzL01FU1NBR0UvY2YzYWYxOTAtMTBlMy0xMWVjLWIyYjAtZGQyM2JlOWFlN2E2",
+    "roomId": "Y2lzY29zcGFyazovL3VzL1JPT00vYTYxYTVmNDAtMDc1YS0xMWVjLWJjODQtODlkNmQyNjJjZGQ3",
+    "roomType": "group",
+    "text": "nothing",
+    "attachments": [
+        {
+            "contentType": "application/vnd.microsoft.card.adaptive",
+            "content": {
+                "type": "AdaptiveCard",
+                "body": [
+                    {
+                        "type": "ColumnSet",
+                        "columns": [
+                            {
+                                "type": "Column",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "style": "Person",
+                                        "url": "https://webexapis.com/v1/contents/Y2lzY29zcGFyazovL3VzL0NPTlRFTlQvY2YzYWYxOTAtMTBlMy0xMWVjLWIyYjAtZGQyM2JlOWFlN2E2LzA",
+                                        "size": "Medium",
+                                        "height": "50px"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Column",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "style": "Person",
+                                        "url": "https://webexapis.com/v1/contents/Y2lzY29zcGFyazovL3VzL0NPTlRFTlQvY2YzYWYxOTAtMTBlMy0xMWVjLWIyYjAtZGQyM2JlOWFlN2E2LzE",
+                                        "size": "Medium",
+                                        "height": "50px"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Replaced",
+                        "wrap": true
+                    }
+                ],
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.2"
+            }
+        }
+    ],
+    "personId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9lODMyOTk3Yy03NmMxLTQ0ODQtYTI3OC0yNmRkMTAzZWU5ZmM",
+    "personEmail": "brandonsNewBot@webex.bot",
+    "created": "2021-09-08T20:31:56.201Z"
+}

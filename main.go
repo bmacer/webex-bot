@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"strings"
 
@@ -10,7 +11,8 @@ import (
 func main() {
 	// test_room := "Y2lzY29zcGFyazovL3VzL1JPT00vZjc0NzM0NDAtMGJmMy0xMWVjLWJmZjctOTNiMGQxYTk5MzEx"
 
-	// api.PostMessage(test_room, "test")
+	// x := api.PostMessage(test_room, "test")
+	// fmt.Println(x)
 	// for i := 0; i < 5; i++ {
 	ac, _ := ioutil.ReadFile("card copy.json")
 	acs := string(ac)
@@ -23,7 +25,8 @@ func main() {
 		ContentType: "application/vnd.microsoft.card.adaptive",
 		Content:     acs,
 	}
-	api.PostMessageWithAdaptiveCard(api.GetRooms().Items[1].Id, aca)
+	y := api.PostMessageWithAdaptiveCard(api.GetRooms().Items[1].Id, aca)
+	fmt.Println(y)
 	// }
 	//
 	// server.Run()

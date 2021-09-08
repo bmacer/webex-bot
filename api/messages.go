@@ -16,11 +16,11 @@ type Messages struct {
 }
 
 type Message struct {
-	Id          string                   `json:"id"`
-	Text        string                   `json:"text"`
-	PersonId    string                   `json:"personId"`
-	PersonEmail string                   `json:"personEmail"`
-	Attachments []AdaptiveCardAttachment `json:"attachments"`
+	Id          string `json:"id"`
+	Text        string `json:"text"`
+	PersonId    string `json:"personId"`
+	PersonEmail string `json:"personEmail"`
+	Attachments string `json:"attachments"`
 }
 
 func (aca *AdaptiveCardAttachment) AsBytes() []byte {
@@ -60,6 +60,7 @@ func PostMessageWithAdaptiveCard(roomId string, aca AdaptiveCardAttachment) Mess
 	mp := []byte(c)
 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
 	fmt.Printf("type: %T\n", m)
+	fmt.Println(string(req))
 	extract(req, &m)
 	return m
 }
