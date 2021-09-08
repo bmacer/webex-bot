@@ -41,7 +41,6 @@ func PostMessage(roomId string, msg string) Message {
 	url := "https://webexapis.com/v1/messages"
 
 	c := fmt.Sprintf(`{"roomId": "%v","text": "%v"}`, roomId, msg)
-	fmt.Println(c)
 	mp := []byte(c)
 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
 	extract(req, &m)
@@ -59,8 +58,6 @@ func PostMessageWithAdaptiveCard(roomId string, aca AdaptiveCardAttachment) Mess
 	}`, roomId, string(aca.AsBytes()))
 	mp := []byte(c)
 	req := sendRequest("POST", url, bytes.NewBuffer(mp))
-	fmt.Printf("type: %T\n", m)
-	fmt.Println(string(req))
 	extract(req, &m)
 	return m
 }
